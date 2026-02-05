@@ -10,7 +10,10 @@ const translations = {
       '치킨', '피자', '삼겹살', '떡볶이', '김치찌개',
       '파스타', '초밥', '햄버거', '부대찌개', '된장찌개',
       '짜장면', '짬뽕', '스테이크', '곱창', '보쌈'
-    ]
+    ],
+    images: {
+      pizza: '피자%20이미지%20삭제.jpg' // URL-encoded filename
+    }
   },
   'en': {
     pageTitle: 'Dinner Menu Recommender',
@@ -23,7 +26,10 @@ const translations = {
       'Chicken', 'Pizza', 'Pork Belly', 'Tteokbokki', 'Kimchi Stew',
       'Pasta', 'Sushi', 'Hamburger', 'Army Stew', 'Bean Paste Stew',
       'Jajangmyeon', 'Jjamppong', 'Steak', 'Gobchang', 'Bossam'
-    ]
+    ],
+    images: {
+      pizza: '피자%20이미지%20삭제.jpg' // URL-encoded filename
+    }
   }
 };
 
@@ -105,6 +111,16 @@ class MenuRecommender extends HTMLElement {
         border-radius: 0.5rem;
         background: oklch(0 0 0 / 0.05);
         animation: appear 0.5s ease-out forwards;
+        display: flex; /* For centering content vertically if needed */
+        align-items: center;
+        justify-content: center;
+        min-height: 80px; /* Ensure space for image */
+      }
+      .menu-display img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 0.5rem;
       }
       @keyframes appear {
         from {
@@ -137,18 +153,27 @@ class MenuRecommender extends HTMLElement {
 
     if (titleElement) titleElement.textContent = translations[lang].componentTitle;
     if (buttonElement) buttonElement.textContent = translations[lang].buttonText;
-    if (menuDisplayElement && menuDisplayElement.textContent === translations['ko'].initialText || menuDisplayElement.textContent.includes(translations['ko'].resultText.split('${selectedMenu}')[0])) {
+    
+    // Only update initial text if it's currently showing initial or result text (not an image)
+    const currentText = menuDisplayElement.textContent;
+    if (currentText === translations['ko'].initialText || 
+        currentText === translations['en'].initialText ||
+        currentText.includes(translations['ko'].resultText.split('${selectedMenu}')[0]) ||
+        currentText.includes(translations['en'].resultText.split('${selectedMenu}')[0])) {
       menuDisplayElement.textContent = translations[lang].initialText;
     }
+    
     // Store menus and resultText on the instance for easy access
     this.currentMenus = translations[lang].menus;
     this.currentResultTextTemplate = translations[lang].resultText;
+    this.currentImages = translations[lang].images;
   }
 
   recommendMenu() {
     const displayElement = this.shadowRoot.getElementById('menu-display');
     const menus = this.currentMenus; // Use instance's menus
     const resultTextTemplate = this.currentResultTextTemplate; // Use instance's template
+    const images = this.currentImages;
 
     const randomIndex = Math.floor(Math.random() * menus.length);
     const selectedMenu = menus[randomIndex];
@@ -157,7 +182,12 @@ class MenuRecommender extends HTMLElement {
     void displayElement.offsetWidth; 
     displayElement.style.animation = 'appear 0.5s ease-out forwards';
     
-    displayElement.textContent = resultTextTemplate.replace('${selectedMenu}', selectedMenu);
+    if (selectedMenu === '피자' || selectedMenu === 'Pizza') {
+      const pizzaImagePath = images.pizza;
+      displayElement.innerHTML = `<img src="${pizzaImagePath}" alt="${selectedMenu}">`;
+    } else {
+      displayElement.textContent = resultTextTemplate.replace('${selectedMenu}', selectedMenu);
+    }
   }
 }
 
