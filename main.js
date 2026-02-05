@@ -17,40 +17,53 @@ class LottoGenerator extends HTMLElement {
 
     const style = document.createElement('style');
     style.textContent = `
+      /* Component-specific variables */
+      :host {
+        --component-main-bg-color: oklch(99% 0 0 / 70%);
+        --component-text-color: var(--text-color);
+        --component-button-text-color: var(--button-text-color);
+        --component-shadow-color: oklch(0 0 0 / 0.05);
+        --component-button-bg-color: var(--button-bg-color);
+      }
+
+      :host([data-theme="dark"]) {
+        --component-main-bg-color: oklch(15% 0 0 / 40%);
+        --component-text-color: var(--text-color);
+        --component-button-text-color: var(--button-text-color);
+        --component-shadow-color: oklch(0 0 0 / 0.07);
+        --component-button-bg-color: var(--button-bg-color);
+      }
+
       .wrapper {
         padding: 2rem;
         border: 1px solid oklch(0 0 0 / 0.1);
         border-radius: 1rem;
         text-align: center;
-        box-shadow: 0 4px 15px oklch(0 0 0 / 0.05), 0 15px 35px oklch(0 0 0 / 0.07);
-        background: oklch(99% 0 0 / 70%);
+        box-shadow: 0 4px 15px var(--component-shadow-color), 0 15px 35px var(--component-shadow-color);
+        background: var(--component-main-bg-color);
         backdrop-filter: blur(10px);
       }
-      body[data-theme="dark"] .wrapper {
-        border-color: oklch(1 1 1 / 0.1);
-        background: oklch(15% 0 0 / 40%);
-      }
       h1 {
-        color: var(--text-color);
+        color: var(--component-text-color);
         font-size: 2.5rem;
         margin-bottom: 1rem;
         font-weight: 600;
       }
       button {
-        background-color: var(--button-bg-color);
-        color: var(--button-text-color);
+        background-color: var(--component-button-bg-color);
+        color: var(--component-button-text-color);
         border: none;
         padding: 1rem 2rem;
         font-size: 1.2rem;
         border-radius: 0.5rem;
         cursor: pointer;
         transition: all 0.3s ease;
-        box-shadow: 0 5px 15px -5px var(--shadow-color);
+        box-shadow: 0 5px 15px -5px var(--component-shadow-color);
         font-weight: 600;
       }
       button:hover {
         transform: translateY(-3px);
-        box-shadow: 0 8px 20px -5px var(--shadow-color);
+        box-shadow: 0 8px 20px -5px var(--component-shadow-color);
       } 
       .numbers {
         display: flex;
@@ -68,7 +81,7 @@ class LottoGenerator extends HTMLElement {
         justify-content: center;
         align-items: center;
         font-size: 1.5rem;
-        color: var(--button-text-color);
+        color: var(--component-button-text-color);
         font-weight: 600;
         animation: appear 0.5s ease-out forwards;
       }
@@ -129,6 +142,7 @@ const body = document.body;
 function setTheme(theme) {
     body.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
+    document.querySelector('lotto-generator').setAttribute('data-theme', theme);
 }
 
 function toggleTheme() {
