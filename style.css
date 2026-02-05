@@ -11,7 +11,7 @@ body {
     font-family: 'Poppins', sans-serif;
     display: flex;
     flex-direction: column; /* Ensure vertical stacking of main elements */
-    justify-content: center;
+    justify-content: flex-start; /* Align content from the start (top) */
     align-items: center;
     min-height: 100vh;
     background-color: var(--main-bg-color);
@@ -24,6 +24,15 @@ menu-recommender {
     display: block;
     width: 90%;
     max-width: 500px;
+}
+
+#main-content {
+    margin-top: 100px; /* Space from the top controls */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px; /* Space between recommender and contact form */
+    margin-bottom: 40px; /* Add some space at the bottom of the content */
 }
 
 body[data-theme="dark"] {
@@ -130,7 +139,7 @@ body[data-theme="dark"] #theme-toggle::after {
 #contact-form-section {
     width: 90%;
     max-width: 500px;
-    margin-top: 40px; /* Space from recommender */
+    /* margin-top: 40px; REMOVED, now handled by #main-content gap */
     padding: 2rem;
     border: 1px solid oklch(0 0 0 / 0.1);
     border-radius: 1rem;
