@@ -20,17 +20,17 @@ class MenuRecommender extends HTMLElement {
     style.textContent = `
       :host {
         --component-main-bg-color: oklch(99% 0 0 / 70%);
-        --component-text-color: var(--text-color);
-        --component-button-text-color: var(--button-text-color);
+        --component-text-color: oklch(20% 0.25 260); /* Direct value for light mode */
+        --component-button-text-color: oklch(98% 0 0); /* Direct value for light mode */
         --component-shadow-color: oklch(0 0 0 / 0.05);
-        --component-button-bg-color: var(--button-bg-color);
+        --component-button-bg-color: oklch(65% 0.25 260); /* Direct value for light mode */
       }
       :host([data-theme="dark"]) {
         --component-main-bg-color: oklch(15% 0 0 / 40%);
-        --component-text-color: var(--text-color);
-        --component-button-text-color: var(--button-text-color);
+        --component-text-color: oklch(95% 0.25 260); /* Direct value for dark mode */
+        --component-button-text-color: oklch(10% 0 0); /* Direct value for dark mode */
         --component-shadow-color: oklch(0 0 0 / 0.07);
-        --component-button-bg-color: var(--button-bg-color);
+        --component-button-bg-color: oklch(65% 0.25 260); /* Direct value for dark mode */
       }
       .wrapper {
         padding: 2rem;
