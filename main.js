@@ -12,7 +12,7 @@ const translations = {
       '짜장면', '짬뽕', '스테이크', '곱창', '보쌈'
     ],
     images: {
-      pizza: '피자%20이미지%20삭제.jpg' // URL-encoded filename
+      pizza: 'pizza.jpg' // Simplified filename
     }
   },
   'en': {
