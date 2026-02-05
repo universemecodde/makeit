@@ -36,9 +36,7 @@ body[data-theme="dark"] {
 }
 
 #theme-toggle-container {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+    /* No absolute positioning needed, handled by #top-right-controls */
 }
 
 #theme-toggle {
@@ -99,5 +97,31 @@ body[data-theme="dark"] #theme-toggle::before {
 }
 body[data-theme="dark"] #theme-toggle::after {
     transform: translate(-30%, -50%) scale(1);
+}
+
+#top-right-controls {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px; /* Space between theme and language toggles */
+    align-items: center;
+}
+
+#lang-toggle {
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+#lang-toggle:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
 }
 
