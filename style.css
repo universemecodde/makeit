@@ -10,6 +10,7 @@
 body {
     font-family: 'Poppins', sans-serif;
     display: flex;
+    flex-direction: column; /* Ensure vertical stacking of main elements */
     justify-content: center;
     align-items: center;
     min-height: 100vh;
