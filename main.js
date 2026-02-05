@@ -1,4 +1,4 @@
-class LottoGenerator extends HTMLElement {
+class MenuRecommender extends HTMLElement {
   constructor() {
     super();
     const shadow = this.attachShadow({ mode: 'open' });
@@ -7,17 +7,17 @@ class LottoGenerator extends HTMLElement {
     wrapper.setAttribute('class', 'wrapper');
 
     const title = document.createElement('h1');
-    title.textContent = 'Lotto Number Generator';
+    title.textContent = '저녁 메뉴 추천';
 
     const button = document.createElement('button');
-    button.textContent = 'Generate Numbers';
+    button.textContent = '메뉴 추천받기';
 
-    const numbersDisplay = document.createElement('div');
-    numbersDisplay.setAttribute('class', 'numbers');
+    const menuDisplay = document.createElement('div');
+    menuDisplay.setAttribute('class', 'menu-display');
+    menuDisplay.textContent = '버튼을 눌러주세요!';
 
     const style = document.createElement('style');
     style.textContent = `
-      /* Component-specific variables */
       :host {
         --component-main-bg-color: oklch(99% 0 0 / 70%);
         --component-text-color: var(--text-color);
@@ -25,7 +25,6 @@ class LottoGenerator extends HTMLElement {
         --component-shadow-color: oklch(0 0 0 / 0.05);
         --component-button-bg-color: var(--button-bg-color);
       }
-
       :host([data-theme="dark"]) {
         --component-main-bg-color: oklch(15% 0 0 / 40%);
         --component-text-color: var(--text-color);
@@ -33,7 +32,6 @@ class LottoGenerator extends HTMLElement {
         --component-shadow-color: oklch(0 0 0 / 0.07);
         --component-button-bg-color: var(--button-bg-color);
       }
-
       .wrapper {
         padding: 2rem;
         border: 1px solid oklch(0 0 0 / 0.1);
@@ -42,6 +40,10 @@ class LottoGenerator extends HTMLElement {
         box-shadow: 0 4px 15px var(--component-shadow-color), 0 15px 35px var(--component-shadow-color);
         background: var(--component-main-bg-color);
         backdrop-filter: blur(10px);
+        min-height: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
       }
       h1 {
         color: var(--component-text-color);
@@ -65,35 +67,24 @@ class LottoGenerator extends HTMLElement {
         transform: translateY(-3px);
         box-shadow: 0 8px 20px -5px var(--component-shadow-color);
       } 
-      .numbers {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-        margin-top: 2rem;
-        perspective: 400px;
-      }
-      .number-ball {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 1.5rem;
-        color: var(--component-button-text-color);
+      .menu-display {
+        color: var(--component-text-color);
+        font-size: 2rem;
         font-weight: 600;
+        margin-top: 2rem;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        background: oklch(0 0 0 / 0.05);
         animation: appear 0.5s ease-out forwards;
       }
-
       @keyframes appear {
         from {
           opacity: 0;
-          transform: scale(0.5) translateY(-20px) rotateX(45deg);
+          transform: translateY(20px) scale(0.95);
         }
         to {
           opacity: 1;
-          transform: scale(1) translateY(0) rotateX(0deg);
+          transform: translateY(0) scale(1);
         }
       }
     `;
@@ -101,40 +92,33 @@ class LottoGenerator extends HTMLElement {
     shadow.appendChild(style);
     shadow.appendChild(wrapper);
     wrapper.appendChild(title);
+    wrapper.appendChild(menuDisplay);
     wrapper.appendChild(button);
-    wrapper.appendChild(numbersDisplay);
 
     button.addEventListener('click', () => {
-      this.generateNumbers(numbersDisplay);
+      this.recommendMenu(menuDisplay);
     });
   }
 
-  generateNumbers(displayElement) {
-    displayElement.innerHTML = '';
-    const numbers = new Set();
-    while (numbers.size < 6) {
-      numbers.add(Math.floor(Math.random() * 45) + 1);
-    }
-
-    const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
-
-    sortedNumbers.forEach((number, index) => {
-      const ball = document.createElement('div');
-      ball.setAttribute('class', 'number-ball');
-      ball.style.backgroundColor = this.getBallColor(number);
-      ball.style.animationDelay = `${index * 0.1}s`;
-      ball.textContent = number;
-      displayElement.appendChild(ball);
-    });
-  }
-
-  getBallColor(number) {
-    const hue = (number * 360 / 45) % 360;
-    return `oklch(60% 0.25 ${hue})`;
+  recommendMenu(displayElement) {
+    const menus = [
+      '치킨', '피자', '삼겹살', '떡볶이', '김치찌개',
+      '파스타', '초밥', '햄버거', '부대찌개', '된장찌개',
+      '짜장면', '짬뽕', '스테이크', '곱창', '보쌈'
+    ];
+    const randomIndex = Math.floor(Math.random() * menus.length);
+    const selectedMenu = menus[randomIndex];
+    
+    // Animate out
+    displayElement.style.animation = 'none';
+    void displayElement.offsetWidth; // Trigger reflow
+    displayElement.style.animation = 'appear 0.5s ease-out forwards';
+    
+    displayElement.textContent = `오늘 저녁은 ${selectedMenu}!`;
   }
 }
 
-customElements.define('lotto-generator', LottoGenerator);
+customElements.define('menu-recommender', MenuRecommender);
 
 const themeToggle = document.getElementById('theme-toggle');
 const body = document.body;
@@ -142,7 +126,11 @@ const body = document.body;
 function setTheme(theme) {
     body.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
-    document.querySelector('lotto-generator').setAttribute('data-theme', theme);
+    // Ensure the query targets the new element, handle case where it might not exist yet
+    const recommender = document.querySelector('menu-recommender');
+    if (recommender) {
+      recommender.setAttribute('data-theme', theme);
+    }
 }
 
 function toggleTheme() {
@@ -151,13 +139,14 @@ function toggleTheme() {
     setTheme(newTheme);
 }
 
-// Apply saved theme on load, or default to light
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme) {
-    setTheme(savedTheme);
-} else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    // Check for user's system preference if no theme is saved
-    setTheme('dark');
-} else {
-    setTheme('light');
-}
+document.addEventListener('DOMContentLoaded', () => {
+    // Apply saved theme on load, or default to light
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        setTheme(savedTheme);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        setTheme('dark');
+    } else {
+        setTheme('light');
+    }
+});
