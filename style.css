@@ -23,3 +23,32 @@ lotto-generator {
     width: 90%;
     max-width: 500px;
 }
+
+body[data-theme="dark"] {
+    --main-bg-color: oklch(20% 0.05 260);
+    --text-color: oklch(95% 0.25 260);
+    --accent-color: oklch(70% 0.25 260);
+    --button-bg-color: oklch(65% 0.25 260);
+    --button-text-color: oklch(10% 0 0);
+    --shadow-color: oklch(50% 0.05 260 / 50%);
+}
+
+#theme-toggle-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+#theme-toggle {
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+#theme-toggle:hover {
+    opacity: 0.9;
+}
