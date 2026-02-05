@@ -108,6 +108,7 @@ const body = document.body;
 function setTheme(theme) {
     body.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
+    themeToggle.textContent = theme === 'light' ? 'Dark Mode' : 'Light Mode';
 }
 
 function toggleTheme() {
