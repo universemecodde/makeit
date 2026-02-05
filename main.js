@@ -19,16 +19,22 @@ class LottoGenerator extends HTMLElement {
     style.textContent = `
       .wrapper {
         padding: 2rem;
-        border: 1px solid var(--accent-color);
+        border: 1px solid oklch(0 0 0 / 0.1);
         border-radius: 1rem;
         text-align: center;
-        box-shadow: 0 10px 30px -10px var(--shadow-color);
-        background: oklch(98% 0 0 / 50%);
+        box-shadow: 0 4px 15px oklch(0 0 0 / 0.05), 0 15px 35px oklch(0 0 0 / 0.07);
+        background: oklch(99% 0 0 / 70%);
+        backdrop-filter: blur(10px);
+      }
+      body[data-theme="dark"] .wrapper {
+        border-color: oklch(1 1 1 / 0.1);
+        background: oklch(15% 0 0 / 40%);
       }
       h1 {
         color: var(--text-color);
         font-size: 2.5rem;
         margin-bottom: 1rem;
+        font-weight: 600;
       }
       button {
         background-color: var(--button-bg-color);
@@ -40,6 +46,7 @@ class LottoGenerator extends HTMLElement {
         cursor: pointer;
         transition: all 0.3s ease;
         box-shadow: 0 5px 15px -5px var(--shadow-color);
+        font-weight: 600;
       }
       button:hover {
         transform: translateY(-3px);
@@ -51,6 +58,7 @@ class LottoGenerator extends HTMLElement {
         justify-content: center;
         gap: 1rem;
         margin-top: 2rem;
+        perspective: 400px;
       }
       .number-ball {
         width: 50px;
@@ -61,7 +69,19 @@ class LottoGenerator extends HTMLElement {
         align-items: center;
         font-size: 1.5rem;
         color: var(--button-text-color);
-        font-weight: bold;
+        font-weight: 600;
+        animation: appear 0.5s ease-out forwards;
+      }
+
+      @keyframes appear {
+        from {
+          opacity: 0;
+          transform: scale(0.5) translateY(-20px) rotateX(45deg);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0) rotateX(0deg);
+        }
       }
     `;
 
@@ -85,10 +105,11 @@ class LottoGenerator extends HTMLElement {
 
     const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
 
-    sortedNumbers.forEach(number => {
+    sortedNumbers.forEach((number, index) => {
       const ball = document.createElement('div');
       ball.setAttribute('class', 'number-ball');
       ball.style.backgroundColor = this.getBallColor(number);
+      ball.style.animationDelay = `${index * 0.1}s`;
       ball.textContent = number;
       displayElement.appendChild(ball);
     });
@@ -108,7 +129,6 @@ const body = document.body;
 function setTheme(theme) {
     body.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
-    themeToggle.textContent = theme === 'light' ? 'Light Mode' : 'Dark Mode';
 }
 
 function toggleTheme() {
@@ -127,5 +147,3 @@ if (savedTheme) {
 } else {
     setTheme('light');
 }
-
-themeToggle.addEventListener('click', toggleTheme);
