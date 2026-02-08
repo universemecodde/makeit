@@ -23,10 +23,15 @@
 
         <section id="animal-face-test-service">
             <h2>AI 동물상 테스트</h2>
-            <p>나의 얼굴은 어떤 동물을 닮았을까요? AI가 분석해드립니다!</p>
-            <div id="webcam-container"></div>
+            <p>얼굴 사진을 업로드하면 AI가 닮은 동물을 찾아드립니다!</p>
+            <div id="image-upload-container">
+                <input type="file" id="image-upload-input" accept="image/*" style="display: none;">
+                <label for="image-upload-input" id="upload-label">사진 업로드하기</label>
+                <div id="image-preview-container">
+                    <img id="image-preview" src="#" alt="미리보기" style="display: none;">
+                </div>
+            </div>
             <div id="label-container"></div>
-            <button type="button" id="start-webcam-button">테스트 시작하기</button>
         </section>
     </div>
     <script src="main.js"></script>
@@ -36,42 +41,24 @@
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
     <script type="text/javascript">
         const URL_TM = "https://teachablemachine.withgoogle.com/models/8imuPmC68/";
-        let model, webcam, labelContainer, maxPredictions;
+        let model, labelContainer, maxPredictions;
 
-        async function initAnimalFaceTest() {
+        async function loadModel() {
             const modelURL = URL_TM + "model.json";
             const metadataURL = URL_TM + "metadata.json";
-
             model = await tmImage.load(modelURL, metadataURL);
             maxPredictions = model.getTotalClasses();
-
-            const flip = true;
-            webcam = new tmImage.Webcam(300, 300, flip); 
-            await webcam.setup();
-            await webcam.play();
-            window.requestAnimationFrame(loop);
-
-            document.getElementById("webcam-container").appendChild(webcam.canvas);
+            
             labelContainer = document.getElementById("label-container");
-            labelContainer.innerHTML = ''; 
             for (let i = 0; i < maxPredictions; i++) {
                 labelContainer.appendChild(document.createElement("div"));
             }
-            
-            document.getElementById("start-webcam-button").style.display = 'none';
-        }
-
-        async function loop() {
-            webcam.update();
-            await predict();
-            window.requestAnimationFrame(loop);
         }
 
         async function predict() {
-            const prediction = await model.predict(webcam.canvas);
+            const image = document.getElementById("image-preview");
+            const prediction = await model.predict(image);
             for (let i = 0; i < maxPredictions; i++) {
-                const classPrediction =
-                    prediction[i].className + ": " + (prediction[i].probability * 100).toFixed(0) + "%";
                 labelContainer.childNodes[i].innerHTML = `
                     <div class="result-bar-container">
                         <span class="result-label">${prediction[i].className}</span>
@@ -82,7 +69,25 @@
             }
         }
 
-        document.getElementById("start-webcam-button").addEventListener('click', initAnimalFaceTest);
+        const input = document.getElementById('image-upload-input');
+        input.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = document.getElementById('image-preview');
+                img.src = event.target.result;
+                img.style.display = 'block';
+                
+                // Wait for image to load before predicting
+                img.onload = () => predict();
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Load model on page load
+        window.addEventListener('DOMContentLoaded', loadModel);
     </script>
 </body>
 </html>
