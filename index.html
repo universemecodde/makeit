@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8YKDW6K6TJ"></script>
     <script>
@@ -17,8 +19,6 @@
             y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
         })(window, document, "clarity", "script", "ve1zidrv09");
     </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>저녁 메뉴 추천</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -128,7 +128,7 @@
 
                 for (let i = 0; i < maxPredictions; i++) {
                     const probability = (prediction[i].probability * 100).toFixed(0);
-                    labelContainer.childNodes[i].innerHTML = `
+                    labelContainer.children[i].innerHTML = `
                         <div class="result-bar-container">
                             <div class="result-header">
                                 <span class="result-label">${prediction[i].className}</span>
@@ -141,7 +141,7 @@
                     `;
                     // Trigger animation after a short delay
                     setTimeout(() => {
-                        const bar = labelContainer.childNodes[i].querySelector('.result-bar');
+                        const bar = labelContainer.children[i].querySelector('.result-bar');
                         if (bar) bar.style.width = probability + '%';
                     }, 50 * i);
                 }

@@ -79,6 +79,20 @@ class MenuRecommender extends HTMLElement {
         flex-direction: column;
         justify-content: space-between;
         transition: all 0.3s ease;
+        box-sizing: border-box;
+      }
+      @media (max-width: 600px) {
+        .wrapper {
+          padding: 1.5rem;
+          min-height: 300px;
+        }
+        h1 {
+          font-size: 1.8rem;
+        }
+        .menu-display {
+          font-size: 1.6rem;
+          padding: 1rem;
+        }
       }
       h1 {
         color: var(--comp-text);
