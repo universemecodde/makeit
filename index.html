@@ -62,16 +62,26 @@
 
         <section id="animal-face-test-service" style="display: none;">
             <h2>AI 동물상 테스트</h2>
-            <p>얼굴 사진을 업로드하면 AI가 닮은 동물을 찾아드립니다!</p>
+            <p>얼굴 사진을 업로드하면 AI가 닮은 동물을 분석해드립니다.</p>
+            
             <div id="image-upload-container">
                 <input type="file" id="image-upload-input" accept="image/*" style="display: none;">
-                <label for="image-upload-input" id="upload-label">사진 업로드하기</label>
-                <div id="image-preview-container">
+                <div id="image-preview-container" onclick="document.getElementById('image-upload-input').click()">
                     <img id="image-preview" src="#" alt="미리보기" style="display: none;">
+                    <div id="upload-placeholder">
+                        <span class="upload-icon">📸</span>
+                        <span>클릭하여 사진 업로드</span>
+                    </div>
                 </div>
             </div>
-            <div id="label-container"></div>
-            <button id="back-to-home-button">돌아가기</button>
+
+            <div id="loading-spinner" style="display: none;">
+                <div class="spinner"></div>
+                <p>AI가 당신의 얼굴을 분석 중입니다...</p>
+            </div>
+
+            <div id="label-container" style="display: none;"></div>
+            <button id="back-to-home-button">메인으로 돌아가기</button>
         </section>
     </div>
     <script src="main.js"></script>
@@ -84,34 +94,61 @@
         let model, labelContainer, maxPredictions;
 
         async function loadModel() {
-            const modelURL = URL_TM + "model.json";
-            const metadataURL = URL_TM + "metadata.json";
-            model = await tmImage.load(modelURL, metadataURL);
-            maxPredictions = model.getTotalClasses();
-            
-            labelContainer = document.getElementById("label-container");
-            for (let i = 0; i < maxPredictions; i++) {
-                labelContainer.appendChild(document.createElement("div"));
+            try {
+                const modelURL = URL_TM + "model.json";
+                const metadataURL = URL_TM + "metadata.json";
+                model = await tmImage.load(modelURL, metadataURL);
+                maxPredictions = model.getTotalClasses();
+                
+                labelContainer = document.getElementById("label-container");
+                labelContainer.innerHTML = ''; // Clear previous
+                for (let i = 0; i < maxPredictions; i++) {
+                    labelContainer.appendChild(document.createElement("div"));
+                }
+            } catch (e) {
+                console.error("Model loading failed", e);
             }
         }
 
         async function predict() {
+            const loading = document.getElementById("loading-spinner");
+            const labels = document.getElementById("label-container");
+            
+            loading.style.display = 'block';
+            labels.style.display = 'none';
+
             const image = document.getElementById("image-preview");
-            const prediction = await model.predict(image);
-            for (let i = 0; i < maxPredictions; i++) {
-                const probability = (prediction[i].probability * 100).toFixed(0);
-                labelContainer.childNodes[i].innerHTML = `
-                    <div class="result-bar-container">
-                        <div class="result-header">
-                            <span class="result-label">${prediction[i].className}</span>
-                            <span class="result-value">${probability}%</span>
+            
+            // Give a small delay for better UX
+            setTimeout(async () => {
+                const prediction = await model.predict(image);
+                
+                // Sort predictions by probability
+                prediction.sort((a, b) => b.probability - a.probability);
+
+                for (let i = 0; i < maxPredictions; i++) {
+                    const probability = (prediction[i].probability * 100).toFixed(0);
+                    labelContainer.childNodes[i].innerHTML = `
+                        <div class="result-bar-container">
+                            <div class="result-header">
+                                <span class="result-label">${prediction[i].className}</span>
+                                <span class="result-value">${probability}%</span>
+                            </div>
+                            <div class="result-bar-bg">
+                                <div class="result-bar" style="width: 0%"></div>
+                            </div>
                         </div>
-                        <div class="result-bar-bg">
-                            <div class="result-bar" style="width: ${probability}%"></div>
-                        </div>
-                    </div>
-                `;
-            }
+                    `;
+                    // Trigger animation after a short delay
+                    setTimeout(() => {
+                        const bar = labelContainer.childNodes[i].querySelector('.result-bar');
+                        if (bar) bar.style.width = probability + '%';
+                    }, 50 * i);
+                }
+                
+                loading.style.display = 'none';
+                labels.style.display = 'block';
+            }, 800);
         }
 
         const input = document.getElementById('image-upload-input');
@@ -122,16 +159,17 @@
             const reader = new FileReader();
             reader.onload = (event) => {
                 const img = document.getElementById('image-preview');
+                const placeholder = document.getElementById('upload-placeholder');
+                
                 img.src = event.target.result;
                 img.style.display = 'block';
+                placeholder.style.display = 'none';
                 
-                // Wait for image to load before predicting
                 img.onload = () => predict();
             };
             reader.readAsDataURL(file);
         });
 
-        // Load model on page load
         window.addEventListener('DOMContentLoaded', loadModel);
     </script>
     <script>
