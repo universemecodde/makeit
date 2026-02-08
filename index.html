@@ -49,18 +49,6 @@
 
             <section id="comments-section">
                 <div id="disqus_thread"></div>
-                <script>
-                    var disqus_config = function () {
-                        this.page.url = window.location.href;  
-                        this.page.identifier = 'makeit_main_comments'; 
-                    };
-                    (function() { // DON'T EDIT BELOW THIS LINE
-                    var d = document, s = d.createElement('script');
-                    s.src = 'https://makeit-1.disqus.com/embed.js';
-                    s.setAttribute('data-timestamp', +new Date());
-                    (d.head || d.body).appendChild(s);
-                    })();
-                </script>
                 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
             </section>
         </div>
@@ -133,6 +121,18 @@
 
         // Load model on page load
         window.addEventListener('DOMContentLoaded', loadModel);
+    </script>
+    <script>
+        var disqus_config = function () {
+            this.page.url = window.location.href.split('#')[0]; // Remove hash for canonical URL
+            this.page.identifier = 'makeit_dinner_recommender'; 
+        };
+        (function() { 
+            var d = document, s = d.createElement('script');
+            s.src = 'https://makeit-1.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
     </script>
 </body>
 </html>
