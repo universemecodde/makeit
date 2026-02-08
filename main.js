@@ -195,6 +195,7 @@ customElements.define('menu-recommender', MenuRecommender);
 
 const themeToggle = document.getElementById('theme-toggle');
 const langToggle = document.getElementById('lang-toggle');
+const animalTestNavButton = document.getElementById('animal-test-nav-button');
 const body = document.body;
 
 let currentLang = 'ko'; // Default language
@@ -204,6 +205,12 @@ function setLanguage(lang) {
     document.title = translations[lang].pageTitle;
     document.documentElement.lang = lang;
     langToggle.textContent = translations[lang].langButtonText;
+    
+    // Update navigation button text if needed
+    if (animalTestNavButton) {
+        animalTestNavButton.textContent = lang === 'ko' ? '동물상 테스트' : 'Animal Face Test';
+    }
+
     localStorage.setItem('lang', lang);
 
     // Update text content of the menu recommender component
@@ -236,6 +243,14 @@ function toggleLanguage() {
 // Event Listeners
 themeToggle.addEventListener('click', toggleTheme);
 langToggle.addEventListener('click', toggleLanguage);
+if (animalTestNavButton) {
+    animalTestNavButton.addEventListener('click', () => {
+        const target = document.getElementById('animal-face-test-service');
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     // Initial Theme Setup

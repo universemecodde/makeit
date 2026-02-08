@@ -7,6 +7,10 @@
     --shadow-color: oklch(50% 0.05 260 / 50%);
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     display: flex;
@@ -109,8 +113,27 @@ body[data-theme="dark"] #theme-toggle::after {
     top: 20px;
     right: 20px;
     display: flex;
-    gap: 10px; /* Space between theme and language toggles */
+    gap: 15px; /* Slightly more gap for three items */
     align-items: center;
+}
+
+#animal-test-nav-button {
+    background-color: var(--accent-color);
+    color: var(--button-text-color);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+#animal-test-nav-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px var(--shadow-color);
+    filter: brightness(1.1);
 }
 
 #lang-toggle {
