@@ -54,82 +54,88 @@ class MenuRecommender extends HTMLElement {
     const style = document.createElement('style');
     style.textContent = `
       :host {
-        --comp-bg: oklch(100% 0 0 / 75%);
-        --comp-border: oklch(100% 0 0 / 40%);
-        --comp-text: oklch(25% 0.05 260);
-        --comp-accent: oklch(65% 0.2 260);
-        --comp-shadow: oklch(0% 0 0 / 8%);
+        --comp-bg: #ffffff;
+        --comp-border: #e5e8eb;
+        --comp-text: #333d4b;
+        --comp-sub-text: #6b7684;
+        --comp-accent: #3182f6;
+        --comp-shadow: rgba(0, 0, 0, 0.06);
       }
       :host([data-theme="dark"]) {
-        --comp-bg: oklch(20% 0.03 260 / 60%);
-        --comp-border: oklch(100% 0 0 / 10%);
-        --comp-text: oklch(90% 0.02 260);
-        --comp-shadow: oklch(0% 0 0 / 40%);
+        --comp-bg: #25282d;
+        --comp-border: #333;
+        --comp-text: #f0f0f0;
+        --comp-shadow: rgba(0, 0, 0, 0.3);
       }
       .wrapper {
-        padding: 3rem;
+        padding: 48px 40px; /* Increased padding */
         border: 1px solid var(--comp-border);
-        border-radius: 2rem;
+        border-radius: 28px; /* Matching border-radius */
         text-align: center;
-        box-shadow: 0 20px 40px var(--comp-shadow);
+        box-shadow: 0 12px 40px var(--comp-shadow), 0 4px 12px rgba(0, 0, 0, 0.02);
         background: var(--comp-bg);
-        backdrop-filter: blur(20px);
-        min-height: 350px;
+        min-height: 400px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         transition: all 0.3s ease;
         box-sizing: border-box;
+        margin-bottom: 60px; /* Outer margin for the component itself */
       }
       @media (max-width: 600px) {
         .wrapper {
-          padding: 1.5rem;
-          min-height: 300px;
+          padding: 30px 24px;
+          min-height: 320px;
         }
         h1 {
-          font-size: 1.8rem;
+          font-size: 22px;
         }
         .menu-display {
-          font-size: 1.6rem;
-          padding: 1rem;
+          font-size: 20px;
+          padding: 1.5rem;
         }
       }
       h1 {
         color: var(--comp-text);
-        font-size: 2.4rem;
-        margin: 0 0 1rem 0;
-        font-weight: 800;
-        letter-spacing: -1px;
+        font-size: 28px;
+        margin: 0 0 1.5rem 0;
+        font-weight: 700;
+        letter-spacing: -0.6px;
       }
       button {
         background: var(--comp-accent);
         color: white;
         border: none;
-        padding: 1.2rem 2.5rem;
-        font-size: 1.2rem;
-        border-radius: 1.2rem;
+        padding: 14px 28px;
+        font-size: 16px;
+        border-radius: 16px;
         cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        font-weight: 700;
-        box-shadow: 0 10px 20px oklch(from var(--comp-accent) l c h / 20%);
+        transition: all 0.2s ease;
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(49, 130, 246, 0.25);
+        width: 100%; /* Full width for consistency */
       }
       button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 15px 30px oklch(from var(--comp-accent) l c h / 30%);
-        filter: brightness(1.1);
+        transform: translateY(-1px);
+        background: #1b64da;
+        box-shadow: 0 8px 20px rgba(49, 130, 246, 0.3);
       } 
       .menu-display {
         color: var(--comp-text);
-        font-size: 2.2rem;
+        font-size: 24px;
         font-weight: 700;
-        margin: 2rem 0;
-        padding: 2rem;
-        border-radius: 1.2rem;
-        background: oklch(0% 0 0 / 4%);
+        margin: 1.5rem 0;
+        padding: 2.5rem 1.5rem;
+        border-radius: 20px;
+        background: #fafbfd;
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: 120px;
+        min-height: 140px;
+        border: 1px solid var(--comp-border);
+      }
+      :host([data-theme="dark"]) .menu-display {
+        background: #2d3036;
       }
       .menu-display img {
         max-width: 100%;

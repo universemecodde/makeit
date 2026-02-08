@@ -45,14 +45,14 @@ body {
 #contact-section, #animal-face-test-service, #comments-section {
     width: 100%;
     max-width: 500px; /* Optimal card width */
-    padding: 40px;
-    border-radius: 24px;
+    padding: 48px 40px; /* Increased top/bottom padding for "breathability" */
+    border-radius: 28px; /* Slightly more rounded */
     background: var(--card-bg);
-    box-shadow: 0 10px 30px var(--shadow-color);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.02); /* Multi-layered soft shadow */
     box-sizing: border-box;
     text-align: center;
-    margin-bottom: 40px;
-    border: 1px solid rgba(0,0,0,0.02); /* Very subtle border */
+    margin-bottom: 60px; /* Increased outer margin between sections */
+    border: 1px solid var(--card-border); /* Explicit subtle border */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -67,24 +67,25 @@ body {
 /* Typography */
 h2 {
     color: var(--text-color);
-    font-size: 26px;
+    font-size: 28px; /* Slightly larger */
     font-weight: 700;
-    margin: 0 0 8px 0;
-    letter-spacing: -0.5px;
+    margin: 0 0 12px 0;
+    letter-spacing: -0.6px;
 }
 
 #contact-form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 24px; /* Increased gap between form fields */
     text-align: left;
     width: 100%;
+    margin-top: 10px;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px; /* Increased gap between label and input */
 }
 
 .form-group label {
