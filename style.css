@@ -264,6 +264,7 @@ body[data-theme="dark"] #contact-form textarea {
     box-shadow: 0 10px 30px var(--shadow-color);
     background: oklch(99% 0 0 / 80%);
     backdrop-filter: blur(12px);
+    min-height: 400px; /* Ensure space for comments */
 }
 
 body[data-theme="dark"] #comments-section {
