@@ -255,6 +255,22 @@ body[data-theme="dark"] #contact-form textarea {
     transform: translateY(-2px);
 }
 
+#comments-section {
+    width: 90%;
+    max-width: 500px;
+    padding: 2.5rem;
+    border: 1px solid oklch(0 0 0 / 0.1);
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    background: oklch(99% 0 0 / 80%);
+    backdrop-filter: blur(12px);
+}
+
+body[data-theme="dark"] #comments-section {
+    border-color: oklch(1 1 1 / 0.1);
+    background: oklch(15% 0 0 / 50%);
+}
+
 #back-to-home-button {
     margin-top: 20px;
     background: none;
