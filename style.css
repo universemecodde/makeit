@@ -130,3 +130,112 @@ body[data-theme="dark"] #theme-toggle::after {
     transform: translateY(-2px);
 }
 
+/* AI Animal Face Test Service Styles */
+#animal-face-test-service {
+    width: 90%;
+    max-width: 500px;
+    padding: 2.5rem;
+    border: 1px solid oklch(0 0 0 / 0.1);
+    border-radius: 1.5rem;
+    text-align: center;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    background: oklch(99% 0 0 / 80%);
+    backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+body[data-theme="dark"] #animal-face-test-service {
+    border-color: oklch(1 1 1 / 0.1);
+    background: oklch(15% 0 0 / 50%);
+}
+
+#animal-face-test-service h2 {
+    color: var(--text-color);
+    font-size: 2.2rem;
+    margin: 0;
+}
+
+#animal-face-test-service p {
+    color: var(--text-color);
+    opacity: 0.8;
+    margin: 0;
+}
+
+#webcam-container {
+    width: 300px;
+    height: 300px;
+    border-radius: 1rem;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+#webcam-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+#label-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.result-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: oklch(0 0 0 / 0.05);
+    padding: 8px 15px;
+    border-radius: 2rem;
+}
+
+body[data-theme="dark"] .result-bar-container {
+    background: oklch(1 1 1 / 0.1);
+}
+
+.result-label {
+    width: 60px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.result-bar {
+    flex-grow: 1;
+    height: 12px;
+    background: var(--accent-color);
+    border-radius: 1rem;
+    transition: width 0.3s ease;
+}
+
+.result-value {
+    width: 40px;
+    text-align: right;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+#start-webcam-button {
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: none;
+    padding: 1.2rem 2.5rem;
+    font-size: 1.3rem;
+    border-radius: 3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 700;
+    box-shadow: 0 8px 20px -5px var(--shadow-color);
+}
+
+#start-webcam-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px -5px var(--shadow-color);
+}
+
