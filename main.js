@@ -243,11 +243,27 @@ function toggleLanguage() {
 // Event Listeners
 themeToggle.addEventListener('click', toggleTheme);
 langToggle.addEventListener('click', toggleLanguage);
+
+const homeView = document.getElementById('home-view');
+const animalFaceTestService = document.getElementById('animal-face-test-service');
+const backToHomeButton = document.getElementById('back-to-home-button');
+
 if (animalTestNavButton) {
     animalTestNavButton.addEventListener('click', () => {
-        const target = document.getElementById('animal-face-test-service');
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
+        if (homeView && animalFaceTestService) {
+            homeView.style.display = 'none';
+            animalFaceTestService.style.display = 'flex';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    });
+}
+
+if (backToHomeButton) {
+    backToHomeButton.addEventListener('click', () => {
+        if (homeView && animalFaceTestService) {
+            homeView.style.display = 'flex';
+            animalFaceTestService.style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     });
 }
