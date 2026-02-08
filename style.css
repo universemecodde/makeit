@@ -299,6 +299,69 @@ h2 {
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
+/* Description Section Style */
+.description-section {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 40px;
+    padding: 20px; /* Less padding than cards */
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.description-section h3 {
+    font-size: 1.3rem;
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+
+.description-section p {
+    color: var(--text-color);
+    margin-bottom: 15px;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.description-section ol {
+    color: var(--text-color);
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.description-section li {
+    margin-bottom: 8px;
+}
+
+/* Footer Style */
+footer {
+    width: 100%;
+    padding: 40px 0;
+    margin-top: auto;
+    border-top: 1px solid var(--card-border);
+    background-color: var(--main-bg-color);
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    color: var(--sub-text-color);
+    font-size: 0.9rem;
+}
+
+.footer-content a {
+    color: var(--sub-text-color);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-content a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
 /* Dark Mode Overrides (Optional but good to keep basic support) */
 body[data-theme="dark"] {
     --main-bg-color: #1a1c20;
