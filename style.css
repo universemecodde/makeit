@@ -31,8 +31,7 @@ menu-recommender {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px; /* Space between recommender and contact form */
-    margin-bottom: 40px; /* Add some space at the bottom of the content */
+    gap: 40px; /* Space between recommender and other content if any */
 }
 
 body[data-theme="dark"] {
@@ -43,10 +42,6 @@ body[data-theme="dark"] {
     --button-text-color: oklch(10% 0 0);
     --shadow-color: oklch(10% 0.05 260 / 50%);
     background-image: linear-gradient(135deg, oklch(15% 0.02 260), oklch(20% 0.05 260));
-}
-
-#theme-toggle-container {
-    /* No absolute positioning needed, handled by #top-right-controls */
 }
 
 #theme-toggle {
@@ -133,99 +128,5 @@ body[data-theme="dark"] #theme-toggle::after {
 #lang-toggle:hover {
     opacity: 0.9;
     transform: translateY(-2px);
-}
-
-/* Contact Form Section Styles */
-#contact-form-section {
-    width: 90%;
-    max-width: 500px;
-    /* margin-top: 40px; REMOVED, now handled by #main-content gap */
-    padding: 2rem;
-    border: 1px solid oklch(0 0 0 / 0.1);
-    border-radius: 1rem;
-    text-align: center;
-    box-shadow: 0 4px 15px var(--shadow-color), 0 15px 35px var(--shadow-color);
-    background: oklch(99% 0 0 / 70%); /* Light theme background */
-    backdrop-filter: blur(10px);
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Space between elements */
-}
-
-body[data-theme="dark"] #contact-form-section {
-    border-color: oklch(1 1 1 / 0.1);
-    background: oklch(15% 0 0 / 40%); /* Dark theme background */
-}
-
-#contact-form-section h2 {
-    color: var(--text-color);
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-}
-
-#contact-form-section form {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch; /* Stretch form elements */
-    gap: 10px;
-}
-
-#contact-form-section label {
-    color: var(--text-color);
-    text-align: left;
-    margin-bottom: -5px; /* Pull label closer to input */
-    font-size: 0.9em;
-    font-weight: 500;
-}
-
-#contact-form-section input[type="text"],
-#contact-form-section input[type="email"],
-#contact-form-section textarea {
-    padding: 10px 15px;
-    border: 1px solid oklch(0 0 0 / 0.2);
-    border-radius: 5px;
-    background-color: oklch(100% 0 0 / 0.8);
-    color: var(--text-color);
-    font-family: 'Poppins', sans-serif;
-    font-size: 1em;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-body[data-theme="dark"] #contact-form-section input,
-body[data-theme="dark"] #contact-form-section textarea {
-    background-color: oklch(0% 0 0 / 0.5);
-    border-color: oklch(100% 0 0 / 0.2);
-}
-
-#contact-form-section input:focus,
-#contact-form-section textarea:focus {
-    outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 2px var(--accent-color);
-}
-
-#contact-form-section textarea {
-    resize: vertical; /* Allow vertical resizing */
-    min-height: 100px;
-}
-
-#contact-form-section button[type="submit"] {
-    background-color: var(--button-bg-color);
-    color: var(--button-text-color);
-    border: none;
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px -5px var(--shadow-color);
-    font-weight: 600;
-    margin-top: 15px;
-}
-
-#contact-form-section button[type="submit"]:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px -5px var(--shadow-color);
 }
 
