@@ -12,8 +12,12 @@ const translations = {
       '짜장면', '짬뽕', '스테이크', '곱창', '보쌈'
     ],
     images: {
-      pizza: 'pizza.jpg' // Simplified filename
-    }
+      pizza: 'pizza.jpg'
+    },
+    animalTestButton: '동물상 테스트',
+    animalTestTitle: '동물상 테스트',
+    animalTestDescription: '웹캠으로 얼굴을 비춰 강아지상인지 고양이상인지 확인해보세요!',
+    webcamStartButton: '웹캠 시작'
   },
   'en': {
     pageTitle: 'Dinner Menu Recommender',
@@ -28,8 +32,12 @@ const translations = {
       'Jajangmyeon', 'Jjamppong', 'Steak', 'Gobchang', 'Bossam'
     ],
     images: {
-      pizza: '피자%20이미지%20삭제.jpg' // URL-encoded filename
-    }
+      pizza: 'pizza.jpg'
+    },
+    animalTestButton: 'Animal Face Test',
+    animalTestTitle: 'Animal Face Test',
+    animalTestDescription: 'Use your webcam to find out if you have a dog face or a cat face!',
+    webcamStartButton: 'Start Webcam'
   }
 };
 
@@ -211,6 +219,19 @@ function setLanguage(lang) {
     if (recommender) {
       recommender.updateText(lang); // Call new method on the component
     }
+
+    // Update text content for animal test section
+    const animalTestSection = document.getElementById('animal-face-test'); // Corrected ID
+    const startWebcamTMButton = document.getElementById('start-webcam-tm-button');
+
+    // Only update animal test section texts if the elements exist
+    if (animalTestSection) {
+        const h2 = animalTestSection.querySelector('h2');
+        const p = animalTestSection.querySelector('p');
+        if (h2) h2.textContent = translations[lang].animalTestTitle;
+        if (p) p.textContent = translations[lang].animalTestDescription;
+    }
+    if (startWebcamTMButton) startWebcamTMButton.textContent = translations[lang].webcamStartButton;
 }
 
 function setTheme(theme) {
@@ -236,6 +257,16 @@ function toggleLanguage() {
 // Event Listeners
 themeToggle.addEventListener('click', toggleTheme);
 langToggle.addEventListener('click', toggleLanguage);
+
+const startWebcamTMButton = document.getElementById('start-webcam-tm-button');
+
+if (startWebcamTMButton) {
+    startWebcamTMButton.addEventListener('click', async () => {
+        if (!webcam_tm || !webcam_tm.webcam) { // Only init if not already initialized
+            await init_tm();
+        }
+    });
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     // Initial Theme Setup

@@ -17,6 +17,7 @@ body {
     background-color: var(--main-bg-color);
     background-image: linear-gradient(135deg, oklch(98% 0.02 260), oklch(95% 0.05 260));
     margin: 0;
+    padding-top: 80px; /* Add padding for fixed header */
     transition: background-color 0.3s ease;
 }
 
@@ -224,8 +225,159 @@ body[data-theme="dark"] #contact-form-section textarea {
     margin-top: 15px;
 }
 
-#contact-form-section button[type="submit"]:hover {
+body[data-theme="dark"] #contact-form-section button[type="submit"]:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 20px -5px var(--shadow-color);
+}
+
+/* New: Toggle Animal Test Button */
+#toggle-animal-test-button {
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px -5px var(--shadow-color);
+    font-weight: 600;
+    margin-top: 40px; /* Space from #main-content */
+}
+
+#toggle-animal-test-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px -5px var(--shadow-color);
+}
+
+/* New: Animal Face Test Section Styles */
+#animal-face-test-section {
+    width: 90%;
+    max-width: 500px;
+    margin-top: 40px; /* Space from toggle button */
+    padding: 2rem;
+    border: 1px solid oklch(0 0 0 / 0.1);
+    border-radius: 1rem;
+    text-align: center;
+    box-shadow: 0 4px 15px var(--shadow-color), 0 15px 35px var(--shadow-color);
+    background: oklch(99% 0 0 / 70%); /* Light theme background */
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between elements */
+    margin-bottom: 40px; /* Space from bottom of page */
+}
+
+body[data-theme="dark"] #animal-face-test-section {
+    border-color: oklch(1 1 1 / 0.1);
+    background: oklch(15% 0 0 / 40%); /* Dark theme background */
+}
+
+#animal-face-test-section h2 {
+    color: var(--text-color);
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+#animal-face-test-section p {
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+}
+
+#animal-face-test-section button { /* For #start-webcam-tm-button */
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1em;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px -3px var(--shadow-color);
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+#animal-face-test-section button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px -5px var(--shadow-color);
+}
+
+#webcam-container {
+    margin: 15px auto;
+    border: 1px solid var(--text-color);
+    border-radius: 5px;
+    overflow: hidden; /* Ensure webcam feed is clipped to border-radius */
+}
+
+#webcam-container canvas {
+    display: block; /* Remove extra space below canvas */
+    max-width: 100%;
+    height: auto;
+}
+
+#label-container div {
+    color: var(--text-color);
+    font-size: 1.1em;
+    font-weight: 500;
+    padding: 5px 0;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--main-bg-color);
+    box-shadow: 0 2px 5px var(--shadow-color);
+    z-index: 1000;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 2rem;
+}
+
+nav a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--accent-color);
+}
+
+footer {
+    width: 100%;
+    padding: 2rem 0;
+    margin-top: 40px;
+    background-color: var(--main-bg-color);
+    text-align: center;
+    color: var(--text-color);
+    border-top: 1px solid oklch(0 0 0 / 0.1);
+}
+
+body[data-theme="dark"] footer {
+    border-top: 1px solid oklch(1 1 1 / 0.1);
+}
+
+footer a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--accent-color);
 }
 
