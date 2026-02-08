@@ -54,83 +54,74 @@ class MenuRecommender extends HTMLElement {
     const style = document.createElement('style');
     style.textContent = `
       :host {
-        --component-main-bg-color: oklch(99% 0 0 / 70%);
-        --component-text-color: oklch(20% 0.25 260); /* Direct value for light mode */
-        --component-button-text-color: oklch(98% 0 0); /* Direct value for light mode */
-        --component-shadow-color: oklch(0 0 0 / 0.05);
-        --component-button-bg-color: oklch(65% 0.25 260); /* Direct value for light mode */
+        --comp-bg: oklch(100% 0 0 / 75%);
+        --comp-border: oklch(100% 0 0 / 40%);
+        --comp-text: oklch(25% 0.05 260);
+        --comp-accent: oklch(65% 0.2 260);
+        --comp-shadow: oklch(0% 0 0 / 8%);
       }
       :host([data-theme="dark"]) {
-        --component-main-bg-color: oklch(15% 0 0 / 40%);
-        --component-text-color: oklch(95% 0.25 260); /* Direct value for dark mode */
-        --component-button-text-color: oklch(10% 0 0); /* Direct value for dark mode */
-        --component-shadow-color: oklch(0 0 0 / 0.07);
-        --component-button-bg-color: oklch(65% 0.25 260); /* Direct value for dark mode */
+        --comp-bg: oklch(20% 0.03 260 / 60%);
+        --comp-border: oklch(100% 0 0 / 10%);
+        --comp-text: oklch(90% 0.02 260);
+        --comp-shadow: oklch(0% 0 0 / 40%);
       }
       .wrapper {
-        padding: 2rem;
-        border: 1px solid oklch(0 0 0 / 0.1);
-        border-radius: 1rem;
+        padding: 3rem;
+        border: 1px solid var(--comp-border);
+        border-radius: 2rem;
         text-align: center;
-        box-shadow: 0 4px 15px var(--component-shadow-color), 0 15px 35px var(--component-shadow-color);
-        background: var(--component-main-bg-color);
-        backdrop-filter: blur(10px);
-        min-height: 300px;
+        box-shadow: 0 20px 40px var(--comp-shadow);
+        background: var(--comp-bg);
+        backdrop-filter: blur(20px);
+        min-height: 350px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        transition: all 0.3s ease;
       }
       h1 {
-        color: var(--component-text-color);
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-        font-weight: 600;
+        color: var(--comp-text);
+        font-size: 2.4rem;
+        margin: 0 0 1rem 0;
+        font-weight: 800;
+        letter-spacing: -1px;
       }
       button {
-        background-color: var(--component-button-bg-color);
-        color: var(--component-button-text-color);
+        background: var(--comp-accent);
+        color: white;
         border: none;
-        padding: 1rem 2rem;
+        padding: 1.2rem 2.5rem;
         font-size: 1.2rem;
-        border-radius: 0.5rem;
+        border-radius: 1.2rem;
         cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 5px 15px -5px var(--component-shadow-color);
-        font-weight: 600;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-weight: 700;
+        box-shadow: 0 10px 20px oklch(from var(--comp-accent) l c h / 20%);
       }
       button:hover {
         transform: translateY(-3px);
-        box-shadow: 0 8px 20px -5px var(--component-shadow-color);
+        box-shadow: 0 15px 30px oklch(from var(--comp-accent) l c h / 30%);
+        filter: brightness(1.1);
       } 
       .menu-display {
-        color: var(--component-text-color);
-        font-size: 2rem;
-        font-weight: 600;
-        margin-top: 2rem;
-        padding: 1.5rem;
-        border-radius: 0.5rem;
-        background: oklch(0 0 0 / 0.05);
-        animation: appear 0.5s ease-out forwards;
-        display: flex; /* For centering content vertically if needed */
+        color: var(--comp-text);
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin: 2rem 0;
+        padding: 2rem;
+        border-radius: 1.2rem;
+        background: oklch(0% 0 0 / 4%);
+        display: flex;
         align-items: center;
         justify-content: center;
-        min-height: 80px; /* Ensure space for image */
+        min-height: 120px;
       }
       .menu-display img {
         max-width: 100%;
         height: auto;
-        display: block;
-        border-radius: 0.5rem;
-      }
-      @keyframes appear {
-        from {
-          opacity: 0;
-          transform: translateY(20px) scale(0.95);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-        }
+        border-radius: 1rem;
+        box-shadow: 0 10px 20px var(--comp-shadow);
       }
     `;
 

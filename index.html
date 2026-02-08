@@ -92,11 +92,16 @@
             const image = document.getElementById("image-preview");
             const prediction = await model.predict(image);
             for (let i = 0; i < maxPredictions; i++) {
+                const probability = (prediction[i].probability * 100).toFixed(0);
                 labelContainer.childNodes[i].innerHTML = `
                     <div class="result-bar-container">
-                        <span class="result-label">${prediction[i].className}</span>
-                        <div class="result-bar" style="width: ${prediction[i].probability * 100}%"></div>
-                        <span class="result-value">${(prediction[i].probability * 100).toFixed(0)}%</span>
+                        <div class="result-header">
+                            <span class="result-label">${prediction[i].className}</span>
+                            <span class="result-value">${probability}%</span>
+                        </div>
+                        <div class="result-bar-bg">
+                            <div class="result-bar" style="width: ${probability}%"></div>
+                        </div>
                     </div>
                 `;
             }
