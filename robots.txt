@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://universemecodde.github.io/makeit/sitemap.xml
+Sitemap: https://makeit-8rv.pages.dev/sitemap.xml
