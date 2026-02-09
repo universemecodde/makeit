@@ -1,4 +1,22 @@
+# 모든 로봇의 접근을 허용합니다
 User-agent: *
 Allow: /
 
+# 구글 검색 로봇 허용
+User-agent: Googlebot
+Allow: /
+
+# 네이버 검색 로봇 허용
+User-agent: Yeti
+Allow: /
+
+# 다음/카카오 검색 로봇 허용
+User-agent: Daumoa
+Allow: /
+
+# 구글 애드센스 로봇 허용 (수익 창출에 중요)
+User-agent: Mediapartners-Google
+Allow: /
+
+# 사이트맵 위치 알려주기
 Sitemap: https://makeit-8rv.pages.dev/sitemap.xml
