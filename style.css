@@ -383,3 +383,79 @@ body[data-theme="dark"] {
     h2 { font-size: 22px; }
     #image-preview-container { height: 260px; }
 }
+
+/* Share Section Styles */
+.share-section {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    margin-bottom: 40px;
+    text-align: center;
+    box-sizing: border-box;
+    /* Optional: Card style if desired, or just transparent */
+}
+
+.share-section h3 {
+    font-size: 1.1rem;
+    color: var(--sub-text-color);
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.share-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.share-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s;
+    color: white;
+    text-decoration: none; /* In case we use <a> tags later */
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    opacity: 0.95;
+}
+
+.share-btn:active {
+    transform: translateY(0);
+}
+
+.share-btn.twitter {
+    background-color: #000000; /* X (Twitter) Brand Color */
+}
+
+.share-btn.facebook {
+    background-color: #1877f2; /* Facebook Brand Color */
+}
+
+.share-btn.copy-link {
+    background-color: var(--sub-text-color);
+}
+
+/* Screen Reader Only (SEO & Accessibility) */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}

@@ -299,4 +299,25 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         setLanguage('ko');
     }
+
+    // Share Button Logic
+    document.querySelectorAll('.share-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const button = e.currentTarget;
+            const currentUrl = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            
+            if (button.classList.contains('twitter')) {
+                window.open(`https://twitter.com/intent/tweet?text=${title}&url=${currentUrl}`, '_blank');
+            } else if (button.classList.contains('facebook')) {
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`, '_blank');
+            } else if (button.classList.contains('copy-link')) {
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('링크가 복사되었습니다!');
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+            }
+        });
+    });
 });
